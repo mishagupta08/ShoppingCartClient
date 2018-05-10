@@ -286,6 +286,7 @@
     <Content Include="Views\Home\productDetailPage.cshtml" />
     <Content Include="Views\Home\cartView.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\deliveryAddressView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

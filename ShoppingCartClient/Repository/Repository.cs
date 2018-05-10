@@ -67,6 +67,16 @@ namespace ShoppingCartClient
 
         #endregion ProductAction
 
+        #region ShippingAddressAction
+
+        private string ManageShippingAddressByFilterAction = "ManageShippingAddress/";
+
+        private string GetAddressByIdAction = "ManageShippingAddress/AddressById";
+
+        private string GetAddressListByUserIdAction = "ManageShippingAddress/AddressByUserId";
+
+        #endregion ShippingAddressAction
+
         #region CategoryDetailAction
 
         public async Task<List<CategoryMaster>> GetCategoryList()
@@ -222,6 +232,55 @@ namespace ShoppingCartClient
         }
 
         #endregion ProductActionDetail
+
+
+        #region ShippingAddressActionDetail
+
+        public async Task<Response> AddEditShipping(UserShippingAddress detail, string action)
+        {
+            var data = JsonConvert.SerializeObject(detail);
+            var result = await CallPostFunction(data, action);
+
+            return result;
+        }
+
+        public async Task<UserShippingAddress> GetAddressById(string Id)
+        {
+            var query = string.Empty;
+            query = "{\"Id\":\"IdValue\"}";
+            query = query.Replace("IdValue", Id);
+            var result = await CallPostFunction(query, GetAddressByIdAction);
+            if (result == null || !result.Status)
+            {
+                return null;
+            }
+            else
+            {
+                var detail = new UserShippingAddress();
+                detail = JsonConvert.DeserializeObject<UserShippingAddress>(result.ResponseValue);
+                return detail;
+            }
+        }
+
+        public async Task<List<UserShippingAddress>> GetAddressListByUserId(string Id)
+        {
+            var query = string.Empty;
+            query = "{\"UserId\":\"IdValue\"}";
+            query = query.Replace("IdValue", Id);
+            var result = await CallPostFunction(query, GetAddressListByUserIdAction);
+            if (result == null || !result.Status)
+            {
+                return null;
+            }
+            else
+            {
+                var detail = new List<UserShippingAddress>();
+                detail = JsonConvert.DeserializeObject<List<UserShippingAddress>>(result.ResponseValue);
+                return detail;
+            }
+        }
+
+        #endregion ShippingAddressActionDetail
 
         #region CartActionDetail
 
