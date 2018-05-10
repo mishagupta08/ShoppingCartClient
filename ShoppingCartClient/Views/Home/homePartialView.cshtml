@@ -1,0 +1,277 @@
+﻿@model ShoppingCartClient.Models.HomeViewModel
+@using ShoppingCartClient.Properties
+<!DOCTYPE html>
+@{
+    Layout = null;
+}
+
+<!-- Slider -->
+<div class="owl-carousel owl-theme" style="margin-top:150px;" id="slider">
+    @if (Model.BannerList != null)
+            {
+                foreach (var banner in Model.BannerList)
+                {
+            <div class="item"><img src="@banner.Url" height="300" width="1080" alt=""></div>
+        }
+    }
+
+    @*<div class="item"><img src="~/images/2.jpg" height="300" width="1080" alt=""></div>
+        <div class="item"><img src="~/images/3.jpg" height="300" width="1080" alt=""></div>
+        <div class="item"><img src="~/images/4.jpg" height="300" width="1080" alt=""></div>
+        <div class="item"><img src="~/images/5.jpg" height="300" width="1080" alt=""></div>*@
+</div>
+
+<!-- Banner -->
+
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            @{
+                var length = Model.CategoryList != null ? Model.CategoryList.Count() : 0;
+                var loopCount = length >= 3 ? 3 : length;
+
+                for (var i = 0; i < loopCount; i++)
+                {
+                    <div class="col-md-4">
+                        <div class="banner_item align-items-center" style="background-image:url(@Model.CategoryList[i].BannerImage)">
+                            <div class="banner_category">
+                                <a onclick="GetSelectedMenuAction('@Model.CategoryList[i].Name', '@Resources.Category', '@Model.CategoryList[i].Id')" href="#">@Model.CategoryList[i].Name</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            @*<div class="col-md-4">
+                    <div class="banner_item align-items-center" style="background-image:url(../images/banner_2.jpg)">
+                        <div class="banner_category">
+                            <a href="~/categories.html">accessories's</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="banner_item align-items-center" style="background-image:url(../images/banner_3.jpg)">
+                        <div class="banner_category">
+                            <a href="~/categories.html">men's</a>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+<!-- Best Sellers -->
+
+<div class="new_arrivals">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="section_title new_arrivals_title">
+                    <h2>Best Sellers</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col text-center">
+                <div class="new_arrivals_sorting">
+                    <ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked" data-filter="*">all</li>
+                        @{
+                            var length1 = Model.CategoryList != null ? Model.CategoryList.Count() : 0;
+                            var loopCount1 = length1 >= 4 ? 4 : length1;
+
+                            for (var i = 0; i < loopCount1; i++)
+                            {
+                                var filter = "." + Model.CategoryList[i].Name;
+                                <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter="@filter">@Model.CategoryList[i].Name</li>
+                            }
+                        }
+
+                        @*<li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".accessories">accessories</li>
+                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".men">men's</li>*@
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+
+                    <!-- Product Slides -->
+                    @if (Model.CategoryProductList != null)
+                    {
+                        foreach (var product in Model.CategoryProductList)
+                        {
+                            <div class="product-item @product.CategoryName">
+                                <div class="product discount product_filter" id="@product.Id" name="productDetail">
+                                    <div class="product_image">
+                                        <img height="250" src="@product.ProductImage" alt="">
+                                    </div>
+                                    <div class="favorite favorite_left"></div>
+                                    @*<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>Show this fo discount% only</span></div>*@
+                                    <div class="product_info">
+                                        <h6 class="product_name">@product.Name</h6>
+                                        <div class="product_price">@product.MRP<span>@*$Before discount price*@</span></div>
+                                    </div>
+                                </div>
+                                <div class="red_button add_to_cart_button"><a href="#" data-id="@product.Id" name="addToCart">add to cart</a></div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Product -->
+
+<div class="best_sellers">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="section_title new_arrivals_title">
+                    <h2>Featured Products</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="product_slider_container">
+                    <div class="owl-carousel owl-theme product_slider">
+
+                        <!-- Slide 1 -->
+                        @if (Model.FeaturedProductList != null)
+                        {
+                            foreach (var product in Model.FeaturedProductList)
+                            {
+                                <div class="owl-item product_slider_item" id="@product.Id" name="productDetail">
+                                    <div class="product-item">
+                                        <div class="product discount">
+                                            <div class="product_image">
+                                                <img height="250" src="@product.ProductImage" alt="">
+                                            </div>
+                                            <div class="favorite favorite_left"></div>
+                                            @*<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>Show Discount Here if any</span></div>*@
+                                            <div class="product_info">
+                                                <h6 class="product_name"><a href="#">@product.Name</a></h6>
+                                                <div class="product_price">@product.MRP<span>@*$Before discount price*@</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <!-- Slider Navigation -->
+
+                    <div class="product_slider_nav_left product_slider_nav d-flex align-items-center justify-content-center flex-column">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    </div>
+                    <div class="product_slider_nav_right product_slider_nav d-flex align-items-center justify-content-center flex-column">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recommended Product -->
+
+<div class="best_sellers">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="section_title new_arrivals_title">
+                    <h2>Recommended Products</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="product_slider_container">
+                    <div class="owl-carousel owl-theme product_slider">
+
+                        <!-- Slide 1 -->
+                        @if (Model.RecommendedProductList != null)
+                        {
+                            foreach (var product in Model.RecommendedProductList)
+                            {
+                                <div class="owl-item product_slider_item" id="@product.Id" name="productDetail">
+                                    <div class="product-item">
+                                        <div class="product discount">
+                                            <div class="product_image">
+                                                <img height="250" src="@product.ProductImage" alt="">
+                                            </div>
+                                            <div class="favorite favorite_left"></div>
+                                            @*<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>Show Discount Here if any</span></div>*@
+                                            <div class="product_info">
+                                                <h6 class="product_name"><a href="#">@product.Name</a></h6>
+                                                <div class="product_price">@product.MRP<span>@*$Before discount price*@</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <!-- Slider Navigation -->
+
+                    <div class="product_slider_nav_left product_slider_nav d-flex align-items-center justify-content-center flex-column">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    </div>
+                    <div class="product_slider_nav_right product_slider_nav d-flex align-items-center justify-content-center flex-column">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Benefit -->
+
+<div class="benefit">
+    <div class="container">
+        <div class="row benefit_row">
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-truck" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>free shipping</h6>
+                        <p>Suffered Alteration in Some Form</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>cach on delivery</h6>
+                        <p>The Internet Tend To Repeat</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-undo" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>45 days return</h6>
+                        <p>Making it Look Like Readable</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>opening all week</h6>
+                        <p>8AM - 09PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

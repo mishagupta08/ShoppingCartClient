@@ -1,0 +1,115 @@
+﻿@model ShoppingCartClient.Models.HomeViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .container {
+        /*width: 50%;*/
+    }
+
+    .view {
+        width: 40%;
+        display: inline-block;
+        border: none;
+        vertical-align: top;
+    }
+
+    .or {
+        background: #003d75;
+        border-radius: 40px;
+        color: #FFFFFF;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        height: 50px;
+        line-height: 50px;
+        margin-top: 75px;
+        text-align: center;
+        width: 50px;
+    }
+
+
+    .textoxes {
+        background: #F0F0E9;
+        border: medium none;
+        color: #696763;
+        display: block;
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+        height: 40px;
+        margin-bottom: 10px;
+        outline: medium none;
+        padding-left: 10px;
+        width: 100%;
+    }
+
+    .card-body {
+        padding: 0px;
+    }
+
+    .text-header {
+        color: #696763;
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        font-weight: 300;
+        margin-bottom: 30px;
+    }
+</style>
+
+<div class="container" style="margin-top:15%;">
+    @********Login View********@
+    <div class="card card-login mx-auto mt-5 view">
+        <h2 class="text-header">Login to yor account</h2>
+        <div class="card-body">
+            <form class="form-horizontal form-material" id="loginform" onsubmit="return ValidateLoginUser();">
+                <div class="form-group">
+                    @*<input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">*@
+                    @Html.TextBoxFor(m => m.LoginModel.Email, new { @id = "Username", @required = "required", @class = "textoxes", @placeholder = "E-Mail ID" })
+                </div>
+                <div class="form-group">
+                    @*<input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">*@
+                    @Html.TextBoxFor(m => m.LoginModel.Password, new { @id = "Password", @required = "required", @type = "password", @class = "textoxes", @placeholder = "Password" })
+                </div>
+                <br />
+                <label id="loginError" style="color:red;"></label>
+                <br />
+                <button type="submit" id="registerButton" on" class="btn btn-info btn-sm text-uppercase waves-effect waves-light">Login Account</button>
+            </form>
+
+
+        </div>
+    </div>
+    <div class="col-sm-1" style="display:inline-block; margin-top:5%; margin-left:3%;">
+        <h2 class="or">OR</h2>
+    </div>
+    @********Registration View********@
+    <div class="card card-login mx-auto mt-5 view" style="margin-left:2% !important;">
+        <h2 class="text-header">New User Signup</h2>
+        <div class="card-body">
+            <form class="form-horizontal form-material" id="registerform" onsubmit="return RegisterUser();">
+                <div class="form-group">
+                    @*<input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">*@
+                    @Html.TextBoxFor(m => m.LoginModel.Name, new { @id = "Username", @required = "required", @class = "textoxes", @placeholder = "Name" })
+                </div>
+                <div class="form-group">
+                    @*<input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">*@
+                    @Html.TextBoxFor(m => m.LoginModel.Email, new { @id = "email", @required = "required", @class = "textoxes", @placeholder = "Email Address" })
+                </div>
+                <div class="form-group">
+                    @*<input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">*@
+                    @Html.TextBoxFor(m => m.LoginModel.Password, new { @id = "Password", @required = "required", @type = "password", @class = "textoxes", @placeholder = "Password" })
+                </div>
+                <br />
+                <label id="registrationError" style="color:red;"></label>
+                <br />
+                <button type="submit" id="loginButton" on" class="btn btn-info btn-sm text-uppercase waves-effect waves-light">Signup</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/plugins/easing/easing.js"></script>
+<script src="~/Scripts/Project/home.js"></script>
