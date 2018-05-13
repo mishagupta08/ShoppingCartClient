@@ -18,3 +18,4 @@ bin
 .vs
 /ShoppingCartClient/obj
 
+/ShoppingCartClient/ShoppingCartClient.csproj.user
