@@ -19,3 +19,4 @@ bin
 /ShoppingCartClient/obj
 
 /ShoppingCartClient/ShoppingCartClient.csproj.user
+/ShoppingCartClient/Properties/PublishProfiles
