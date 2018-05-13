@@ -1,0 +1,18 @@
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/config/applicationhost.config
+/ShoppingCartClient/bin
+/.vs/ShoppingCartClient/v14/.suo
+/ShoppingCartClient/obj/Debug
+/ShoppingCartClient/obj/Release
+*.msl
+*.csdl
+*.cache
+*.ssdl
+*.pdb
+PublishProfiles
+obj
+bin
+.vs
