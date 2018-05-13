@@ -277,7 +277,7 @@ namespace ShoppingCartClient.Controllers
                 var list = GetCartProductIdsFromCookie();
                 if (list == null)
                 {
-                    return null;
+                    model.CategoryProductList = null;
                 }
                 else
                 {

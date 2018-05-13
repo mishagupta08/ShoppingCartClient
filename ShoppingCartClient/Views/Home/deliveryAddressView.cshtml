@@ -1,0 +1,58 @@
+﻿@model ShoppingCartClient.Models.HomeViewModel
+@using ShoppingCartClient.Properties
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+<style>
+    .shooping-bag-header {
+        display: inline-block;
+        float: left;
+    }
+
+    .total-bag {
+        display: inline-block;
+        float: right;
+    }
+</style>
+<div class="container single_product_container" style="margin-top:10%">
+    <div class="row">
+        @if (Model == null || Model.CategoryProductList == null || Model.CategoryProductList.Count == 0)
+        {
+            <div>
+                <img src="~/images/bag.jpg" height="30" width="30" />
+                <div>Your Shopping Bag is empty</div>
+            </div>
+        }
+        else
+        {
+            <div style="width:100%;">
+                <h5 class="shooping-bag-header">My Shopping Bag (@Model.CategoryProductList.Count Item)</h5>
+                <h5 class="total-bag">Total : @Model.CategoryProductList.Sum(p => p.MRP)</h5>
+
+                <br />
+                <div style="width:100%;">
+                    @foreach (var product in Model.CategoryProductList)
+                {
+                        <div style="width:100%; border:1px solid gray;">
+                            <div>
+                                <div style="display:inline-block;">
+                                    <img src="@product.ProductImage" height="100" width="50" />
+                                </div>
+                                <div style="display:inline-block;">
+                                    <div> @product.Name </div>
+                                    <div>@product.MRP</div>
+                                    <div> @product.Quantity </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/Project/home.js"></script>
